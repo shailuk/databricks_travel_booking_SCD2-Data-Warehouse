@@ -42,5 +42,6 @@
 ## Pyspark Notebooks Data Pipeline <br/>
 <img width="2356" height="436" alt="image" src="https://github.com/user-attachments/assets/73123b8f-fdc9-47b3-82b6-88661de4937f" />
 <br/>
+
 ## SQL Data Pipeline <br/>
 <img width="1874" height="818" alt="image" src="https://github.com/user-attachments/assets/3cd88273-c33e-47c1-912b-f87b035306cb" />
