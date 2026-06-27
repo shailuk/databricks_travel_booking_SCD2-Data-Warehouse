@@ -1,0 +1,66 @@
+--------- Instructions to create external catalog -------------
+
+Step 01 : Create an S3 bucket in your AWS account.
+
+Step 02 : Create an external location in your databricks account.
+
+Step 03 : Add the location of the S3 bucket created in step 2 --> Generate token --> Copy the token  -> Launch QuickStart
+
+Step 04 : Under parameters section, paste the databricks personal access account token --> Click on Create Stack 
+
+Step 05 : Create a new catalog --> Assign a name, Set the type to Standard and choose the external location (S3 bucket created in Step - 1). Click Create 
+
+----------- Create a normal catalog -----------------
+
+Step 06 : Create new catalog --> Type - Standard --> Click on Create 
+
+Step 07 : Inside the catalog created in step 6, inside default schema, create a managed volume
+
+Step 08 : Create 2 directories inside the managed volume (named as data) - customer_data and bookings_data 
+
+Step 09 : Upload the bookings and customer data into the directories  
+
+Step 10 : Validate Inputs Script - Validates input parameters and file existence before processing
+
+Step 11 : 10_ingest_bookings_bronze - This notebook ingests booking transaction data into the bronze layer
+
+Step 12 : 11_ingest_customers_bronze - This notebook ingests customer master data into the bronze layer with SCD2 preparation
+
+Step 13 : 20_dq_bookings - This notebook performs comprehensive data quality checks on booking data
+
+Step 14 : 21_dq_customers - This notebook performs comprehensive data quality checks on customers data
+
+Step 15 : 30_customer_dim_scd2 - This notebook implements SCD2 (Slowly Changing Dimension Type 2) for customer data
+
+Step 16 : 31_booking_fact_build - This notebook builds the booking fact table with dimension integration
+
+Step 18 : 40_optimize_zorder - This notebook optimizes Delta tables for query performance - TABLE OPTIMIZATION: Z-ORDER & VACUUM
+ - Z-ORDER is how you organize the files inside the cabinets so you can find them instantly. 
+ - VACUUM is how you throw away old, discarded paperwork to free up space.
+
+ - Feature | 📋 DataFrame |  📁 NormalTable (Parquet/CSV) | 🚀Delta Table 
+ - Where does it live?  | In-Memory (RAM) | Cloud Storage (Files) |Cloud Storage (Files + Log)
+ - Is it permanent? | ❌ No. Erased when job stops.   | Yes. Saved to disk.Yes.   | Saved to disk.
+ - Can you UPDATE/MERGE? | ❌ No. You must transform it.  | ❌ No. Throws a Spark error.Yes. | Fully supported.
+ - Does it have history? | ❌ No. Current state only.| ❌ No. Overwrites erase the past. | Yes. Supports Time Travel.
+ - How do you query it? | PySpark code | (df.select())PySpark or SQL. | PySpark or SQL
+
+ Step 19 : 41_analyze_stats - This notebook updates table statistics for query optimization
+
+ Step 20 : log_completion_flow.sql - Log successful completion of SQL workflow execution
+
+ Step 21 : travel_booking_init.sql - This script initializes schemas and tables for the SQL-driven workflow
+
+ Step 22 : data_quality_summary.sql - This script creates and populates daily data quality summary metrics
+
+ Step 23 : daily_revenue.sql - This script creates and populates daily revenue analytics by booking type
+
+ Step 24 : customer360.sql - This view creates a comprehensive customer 360 analytics view
+
+ Step 25 : Create the workflow pipeline - One for notebook and one for the sql scripts - Does aggregation
+
+ Step 26 : 
+
+
+
+
